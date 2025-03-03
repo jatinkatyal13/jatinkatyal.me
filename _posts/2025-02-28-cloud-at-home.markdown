@@ -4,10 +4,9 @@ title:  "Cloud @ home"
 date:   2025-02-28 16:36:17 +0530
 categories: home-lab raspberry-pi
 author: "Jatin Katyal"
-categories: [Cloud, Kubernetes, RaspberryPi, Self-Hosting]
+categories: [Cloud, Kubernetes, RaspberryPi, self-hosting]
 ---
 
-## Introduction
 Cloud computing isn't just for massive data centers; you can bring the cloud home! In this post, I'll walk through setting up a small but powerful cloud environment using Raspberry Pi, K3s for Kubernetes, Longhorn for storage, and Cloudflare Tunnel for remote access.
 
 ## Requirements

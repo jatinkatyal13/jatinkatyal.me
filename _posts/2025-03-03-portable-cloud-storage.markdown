@@ -4,9 +4,8 @@ title:  "Portable Cloud Storage"
 date:   2025-03-03 19:13:00 +0530
 categories: home-lab raspberry-pi
 author: "Jatin Katyal"
-categories: [Cloud, Kubernetes, RaspberryPi, Self-Hosting, Ente.io]
+categories: [Cloud, Kubernetes, RaspberryPi, self-hosting, ente.io]
 ---
-## Introduction
 
 With cloud storage becoming an integral part of our digital lives, I wanted to create a truly personal cloud—one that is elastic, portable, and abstracted from the user. My goal was simple: self-host Ente.io, a secure photo and file storage service, on a Raspberry Pi cluster with the following properties:
 
