@@ -1,8 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body.dark-mode {
-  background-color: theme('colors.darkBackground');
-  color: theme('colors.darkText');
-}
