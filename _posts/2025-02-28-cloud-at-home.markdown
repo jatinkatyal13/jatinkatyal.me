@@ -19,10 +19,40 @@ To get started, I purchased a Raspberry Pi from Amazon: [here](https://amzn.in/d
 ## Setting up K3s
 K3s is a lightweight Kubernetes distribution that runs well on Raspberry Pi. The goal is to have a unified API to deploy applications, making it easier to scale by adding more Raspberry Pis later.
 
-### Install K3s
+### Single-node Setup
 ```sh
 curl -sfL https://get.k3s.io | sh -
 sudo kubectl get nodes
+```
+
+### Multi-node Setup
+For future expansion, install K3s agent on additional Raspberry Pis:
+
+First, fetch the K3S token from the master node:
+```sh
+sudo cat /var/lib/rancher/k3s/server/node-token
+```
+
+Then, run the following command on each additional Raspberry Pi:
+```sh
+curl -sfL https://get.k3s.io | K3S_URL=https://<master-ip>:6443 K3S_TOKEN=<TOKEN> sh -
+```
+
+Replace `<master-ip>` with the IP address of your master node and `<TOKEN>` with the token you fetched from the master node.
+
+During installation K3S service might fail to boot, you can check the error using following
+```
+journalctl -xeu k3s-agent.service
+```
+
+you'll find the following error
+```
+Mar 04 20:23:56 raspberrypi k3s[2006]: time="2025-03-04T20:23:56+05:30" level=fatal msg="failed to find memory cgroup (v2)"
+```
+
+To resolve this issue I updated the `/boot/firmware/cmdline.txt` and appended following
+```
+... cgroup_enable=memory cgroup_memory=1 systemd.unified_cgroup_hierarchy=1
 ```
 
 ### Set Kubeconfig
@@ -32,12 +62,6 @@ mkdir -p ~/.kube
 sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 sudo chown $(whoami):$(whoami) ~/.kube/config
 export KUBECONFIG=~/.kube/config
-```
-
-### Multi-node Setup
-For future expansion, install K3s agent on additional Raspberry Pis:
-```sh
-curl -sfL https://get.k3s.io | K3S_URL=https://<master-ip>:6443 K3S_TOKEN=<TOKEN> sh -
 ```
 
 ## Setting up Longhorn for Storage
